@@ -23,7 +23,7 @@ contract AuctionSystem is ReentrancyGuard, Ownable {
 
     event AuctionCreated(uint256 indexed auctionId, address indexed seller, uint256 startTime, uint256 endTime);
     event BidPlaced(uint256 indexed auctionId, address indexed bidder, uint256 amount);
-    event AuctionEnded(uint256 indexed auctionId, address winner, uint256 amount);
+    event AuctionEndedEvent(uint256 indexed auctionId, address winner, uint256 amount);
     event WithdrawalMade(uint256 indexed auctionId, address indexed bidder, uint256 amount);
 
     error AuctionNotStarted();
@@ -81,7 +81,7 @@ contract AuctionSystem is ReentrancyGuard, Ownable {
             auction.seller.transfer(auction.highestBid);
         }
 
-        emit AuctionEnded(_auctionId, auction.highestBidder, auction.highestBid);
+        emit AuctionEndedEvent(_auctionId, auction.highestBidder, auction.highestBid);
     }
 
     function withdrawBid(uint256 _auctionId) external nonReentrant {
